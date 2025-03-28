@@ -1,0 +1,35 @@
+ing LabWorkLibrary;
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Тестирование библиотеки LabWorkLibrary");
+
+        // Использование константы
+        Console.WriteLine($"\nБинарный фактор: {Maths.BINARY_FACTOR}");
+
+        // Тестирование методов
+        TestMathOperation("Сложение", Maths.Add(5, 3));
+        TestMathOperation("Вычитание", Maths.Minus(5, 3));
+        TestMathOperation("Умножение", Maths.Multi(5, 3));
+        TestMathOperation("Деление", Maths.Divide(6, 3));
+
+        // Тестирование вычисления площади
+        try
+        {
+            double area = Maths.RectangleArea(4, 5);
+            Console.WriteLine($"\nПлощадь прямоугольника 4x5: {area}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+    }
+
+    static void TestMathOperation(string operationName, double result)
+    {
+        Console.WriteLine($"{operationName}: {result}");
+    }
+}
