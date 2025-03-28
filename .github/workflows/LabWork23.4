@@ -1,0 +1,47 @@
+using LabWorkLibrary;
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Тестирование исключений в библиотеке LabWorkLibrary");
+
+        TestDivision(10, 2);   // Корректные данные
+        TestDivision(5, 0);    // Деление на ноль
+
+        TestRectangleArea(3, 4);   // Корректные данные
+        TestRectangleArea(-2, 5);  // Отрицательная длина
+        TestRectangleArea(3, -1);  // Отрицательная ширина
+        TestRectangleArea(0, 5);   // Нулевая длина
+    }
+
+    static void TestDivision(double a, double b)
+    {
+        try
+        {
+            Console.WriteLine($"\nДеление {a} на {b}:");
+            double result = Maths.Divide(a, b);
+            Console.WriteLine($"Результат: {result}");
+        }
+        catch (DivideByZeroException ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+    }
+
+    static void TestRectangleArea(double length, double width)
+    {
+        try
+        {
+            Console.WriteLine($"\nПлощадь прямоугольника {length}x{width}:");
+            double area = Maths.RectangleArea(length, width);
+            Console.WriteLine($"Результат: {area}");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+            Console.WriteLine($"Параметр: {ex.ParamName}");
+        }
+    }
+}
