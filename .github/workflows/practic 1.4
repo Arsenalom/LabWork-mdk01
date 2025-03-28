@@ -1,0 +1,46 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== Поиск файлов ===");
+        Console.Write("Введите путь к папке: ");
+        string folderPath = Console.ReadLine();
+        
+        Console.Write("Введите часть имени файла: ");
+        string searchPattern = Console.ReadLine();
+
+        try
+        {
+            if (Directory.Exists(folderPath))
+            {
+                string[] files = Directory.GetFiles(folderPath, 
+                    $"*{searchPattern}*", SearchOption.AllDirectories);
+                
+                if (files.Length > 0)
+                {
+                    Console.WriteLine("\nНайденные файлы:");
+                    foreach (string file in files)
+                    {
+                        FileInfo fi = new FileInfo(file);
+                        Console.WriteLine($"{file} ({fi.Length} байт)");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Файлы не найдены.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Папка '{folderPath}' не существует.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+    }
+}
