@@ -1,0 +1,22 @@
+namespace LabWorkLibrary
+{
+    public class Maths
+    {
+        public const int BINARY_FACTOR = 1024;
+        public static double Add(double a, double b) => a + b;
+        public static double Minus(double a, double b) => a - b;
+        public static double Multi(double a, double b) => a * b;
+        public static double Divide(double a, double b)
+        {
+            if (b == 0)
+                throw new DivideByZeroException("Делитель не может быть равен нулю");
+            return a / b;
+        }
+        public static double RectangleArea(double length, double width)
+        {
+            if (length <= 0 || width <= 0)
+                throw new ArgumentException("Длина и ширина должны быть положительными числами");
+            return length * width;
+        }
+    }
+}
