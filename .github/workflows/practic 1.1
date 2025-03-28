@@ -1,0 +1,30 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== Чтение файла ===");
+        Console.Write("Введите путь к файлу: ");
+        string filePath = Console.ReadLine();
+
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                string content = File.ReadAllText(filePath);
+                Console.WriteLine("\nСодержимое файла:");
+                Console.WriteLine(content);
+            }
+            else
+            {
+                Console.WriteLine($"Файл '{filePath}' не существует.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+    }
+}
