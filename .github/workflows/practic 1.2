@@ -1,0 +1,41 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== Запись в файл ===");
+        Console.Write("Введите путь к файлу: ");
+        string filePath = Console.ReadLine();
+
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                Console.WriteLine("Файл существует. Открыт для дозаписи.");
+            }
+            else
+            {
+                Console.WriteLine("Файл не существует. Будет создан новый.");
+                File.Create(filePath).Close();
+            }
+
+            Console.WriteLine("\nВводите текст (для завершения введите 'end'):");
+            
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if (input.ToLower() == "end") break;
+                
+                File.AppendAllText(filePath, input + Environment.NewLine);
+            }
+            
+            Console.WriteLine("Запись завершена.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+    }
+}
