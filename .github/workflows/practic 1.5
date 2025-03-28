@@ -1,0 +1,49 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== Сортировка файлов по дате ===");
+        Console.Write("Введите путь к папке: ");
+        string sourceFolder = Console.ReadLine();
+
+        try
+        {
+            if (Directory.Exists(sourceFolder))
+            {
+                string[] files = Directory.GetFiles(sourceFolder);
+                
+                foreach (string file in files)
+                {
+                    FileInfo fi = new FileInfo(file);
+                    DateTime lastWrite = fi.LastWriteTime;
+                    
+                    string destFolder = Path.Combine(
+                        sourceFolder,
+                        lastWrite.Year.ToString(),
+                        lastWrite.Month.ToString("00"),
+                        lastWrite.Day.ToString("00"));
+                    
+                    Directory.CreateDirectory(destFolder);
+                    
+                    string destFile = Path.Combine(destFolder, fi.Name);
+                    File.Move(file, destFile);
+                    
+                    Console.WriteLine($"Перемещен: {fi.Name} -> {destFolder}");
+                }
+                
+                Console.WriteLine("\nСортировка завершена!");
+            }
+            else
+            {
+                Console.WriteLine($"Папка '{sourceFolder}' не существует.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+    }
+}
